@@ -22,7 +22,12 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation("com.google.guava:guava:31.1-jre")
+    implementation("nz.ac.waikato.cms.weka:SMOTE:1.0.3")
     implementation("nz.ac.waikato.cms.weka:weka-stable:3.8.6")
+    implementation("nz.ac.waikato.cms.weka:tiny-weka:3.9.15955")
+    implementation("io.spinnaker.keel:keel:1.2.1")
+    implementation("io.spinnaker.keel:keel-core:1.2.1")
+
 }
 
 
