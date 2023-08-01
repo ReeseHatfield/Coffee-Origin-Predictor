@@ -4,12 +4,13 @@ import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
 
+
 import java.io.File;
 import java.io.IOException;
 
 public class Driver {
     public static void main (String[] args) throws Exception{
-        Instances data = loadCSV("lib/src/main/resources/final_clean_data.csv");
+        Instances data = loadCSV("lib/src/main/resources/augmented_data.csv");
 
         // Set class index to 'Country.of.Origin'
         String className = "Country.of.Origin";
@@ -28,7 +29,7 @@ public class Driver {
         }
 
         // Split data into training and test sets
-        int trainSize = (int) Math.round(data.numInstances() * 0.85);
+        int trainSize = (int) Math.round(data.numInstances() * 0.80);
         int testSize = data.numInstances() - trainSize;
         Instances train = new Instances(data, 0, trainSize);
         Instances test = new Instances(data, trainSize, testSize);
@@ -37,9 +38,9 @@ public class Driver {
         J48 decTree = new J48();
         String[] options = new String[4];
         options[0] = "-C";
-        options[1] = "0.15"; // confidence factor, lower values incur more pruning
+        options[1] = "0.20"; // confidence factor, lower values incur more pruning
         options[2] = "-M";
-        options[3] = "5"; // minimum number of instances per leaf
+        options[3] = "1"; // minimum number of instances per leaf
 
         // Train the classifier
         decTree.setOptions(options);
