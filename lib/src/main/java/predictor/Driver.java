@@ -1,29 +1,30 @@
 package predictor;
-import weka.classifiers.Evaluation;
-import weka.classifiers.trees.J48;
-import weka.core.DenseInstance;
+
+import predictor.utils.SystemUtils;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
 
-
-import java.io.*;
-import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 
 public class Driver {
     public static void main (String[] args) throws Exception {
-        supressBLASandNETLIBWarnings();
+        SystemUtils.suppressBLASandNETLIBWarnings();
 
         Instances data = loadCSV("lib/src/main/resources/augmented_data.csv");
-        String[] attributes = {"Aroma","Flavor","Aftertaste","Acidity","Body",
-                "Balance","Uniformity","Clean.Cup",
-                "Sweetness"};
+
+        String[] attributes = {
+                "Aroma","Flavor", "Aftertaste",
+                "Acidity", "Body", "Balance",
+                "Uniformity", "Clean.Cup", "Sweetness"};
 
         OriginPredictor predictor = new OriginPredictor(data, attributes);
         predictor.train();
         predictor.evaluate();
         Instance userGivenInstance = predictor.gatherUserInput();
         String predictedCountryOfOrigin = predictor.predict(userGivenInstance);
+
         System.out.println("Predicted Country of Origin: " + predictedCountryOfOrigin);
 
     }
@@ -41,14 +42,8 @@ public class Driver {
         }
 
         return data;
-        // This should return as if loaded as a .arfff
+        // This should return as if loaded as a .arff
     }
 
-    private static void supressBLASandNETLIBWarnings(){
-        try {
-            System.setErr(new PrintStream(new FileOutputStream("error.log")));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+
 }
