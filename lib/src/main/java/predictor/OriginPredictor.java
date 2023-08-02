@@ -31,10 +31,6 @@ public class OriginPredictor {
                 trainingData.deleteAttributeAt(i);
             }
         }
-
-
-
-
     }
 
     public Instance gatherUserInput() {
@@ -49,15 +45,20 @@ public class OriginPredictor {
             double value = 0;
             if(scanner.hasNextDouble()){
                 value = scanner.nextDouble();
-                scanner.nextLine();  // consume the newline
+                scanner.nextLine();
             } else {
                 System.out.println("Invalid input. Please enter a number between 6.0 - 10.0");
-                scanner.next();  // consume the invalid input
-                i--;  // repeat the current iteration
-                continue;  // go to the next iteration
+                scanner.next();  // clear input buffer
+
+                //restart current iteration
+                i--;
+                continue;
             }
+
             if(6.0 > value || value > 10.0){
                 System.out.println("Error: value must be in range of 6.0 - 10.0");
+
+                //restart current iteration
                 i--;
                 continue;
             }
@@ -69,13 +70,18 @@ public class OriginPredictor {
 
     }
     public void train() throws Exception {
-        int trainSize = (int) Math.round(this.data.numInstances() * 1.0);
+        double percentToTest = 0.0;
+        // this value reflects the percentage of training data instances the
+        // model should test should use to test its accuracy. As it currently
+        // stands, the models has ~ 81 % accuracy on given tests, regardless of test percentage
+
+        int trainSize = (int) Math.round(this.data.numInstances() * (1 - percentToTest));
         int testSize = this.data.numInstances() - trainSize;
 
         this.train = new Instances(this.data, 0, trainSize);
         this.test = new Instances(this.data, trainSize, testSize);
 
-        //create dec tree
+        //create dec tree and tweak hyper parameters
         this.decTree = new J48();
         String[] options = new String[4];
         options[0] = "-C";
@@ -83,7 +89,7 @@ public class OriginPredictor {
         options[2] = "-M";
         options[3] = "1"; // minimum number of instances per leaf
 
-        // Train the classifier
+        // apply options and build classifier tree
         this.decTree.setOptions(options);
         this.decTree.buildClassifier(train);
     }
