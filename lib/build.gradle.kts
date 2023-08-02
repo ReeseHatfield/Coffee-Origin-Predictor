@@ -16,6 +16,7 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.apache.commons:commons-math3:3.6.1")
@@ -25,25 +26,12 @@ dependencies {
     implementation("nz.ac.waikato.cms.weka:SMOTE:1.0.3")
     implementation("nz.ac.waikato.cms.weka:weka-stable:3.8.6")
     implementation("nz.ac.waikato.cms.weka:tiny-weka:3.9.15955")
-    implementation("io.spinnaker.keel:keel:1.2.1")
-    implementation("io.spinnaker.keel:keel-core:1.2.1")
-
 }
 
-
-testing {
-    suites {
-        // Configure the built-in test suite
-        val test by getting(JvmTestSuite::class) {
-            // Use JUnit4 test framework
-            useJUnit("4.13.2")
-        }
-    }
-}
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(20))
+        languageVersion.set(JavaLanguageVersion.of(18))
     }
 }

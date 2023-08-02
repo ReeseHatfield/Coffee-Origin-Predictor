@@ -1,0 +1,8 @@
+Aug 02, 2023 9:45:07 AM com.github.fommil.jni.JniNamer arch
+WARNING: unrecognised architecture: aarch64
+Aug 02, 2023 9:45:08 AM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Aug 02, 2023 9:45:08 AM com.github.fommil.jni.JniNamer arch
+WARNING: unrecognised architecture: aarch64
+Aug 02, 2023 9:45:08 AM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
